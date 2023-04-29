@@ -34,7 +34,6 @@ public class BookingScheduler {
             throw new RuntimeException("Number of people is over restaurant capacity per hour");
         }
 
-
         /*
         // 일요일에는 시스템을 오픈하지 않는다.
         LocalDateTime now = LocalDateTime.now();
