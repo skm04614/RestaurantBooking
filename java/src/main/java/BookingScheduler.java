@@ -35,13 +35,13 @@ public class BookingScheduler {
         }
 
 
-		/*
-		// 일요일에는 시스템을 오픈하지 않는다.
+        /*
+        // 일요일에는 시스템을 오픈하지 않는다.
         LocalDateTime now = LocalDateTime.now();
         if(now.getDayOfWeek() == DayOfWeek.SUNDAY){
-			throw new RuntimeException("Booking system is not available on sunday");
-		}
-		*/
+           throw new RuntimeException("Booking system is not available on sunday");
+        }
+        */
 
         schedules.add(schedule);
 
@@ -65,3 +65,4 @@ public class BookingScheduler {
         this.mailSender = mailSender;
     }
 }
+
