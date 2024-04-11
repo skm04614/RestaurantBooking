@@ -10,11 +10,13 @@ using std::vector;
 
 class BookingScheduler {
 public:
-	BookingScheduler(int capacityPerHour) : 
-		capacityPerHour{ capacityPerHour } {
-	}
+    BookingScheduler(int capacityPerHour) :
+        capacityPerHour{ capacityPerHour } {
+        smsSender = new SmsSender();
+        mailSender = new MailSender();
+    }
 
-	void addSchedule(Schedule *schedule) {
+    void addSchedule(Schedule* schedule) {
 
         // 정각에 예약하지 않을 경우 RuntimeException 발생
         if (schedule->getDateTime().tm_min != 0) {
@@ -23,7 +25,7 @@ public:
 
         // 시간당 예약인원을 초과할 경우 RuntimeException 발생
         int numberOfPeople = schedule->getNumberOfPeople();
-        for (Schedule *bookedSchedule : schedules) {
+        for (Schedule* bookedSchedule : schedules) {
             if (isSameTime(bookedSchedule->getDateTime(), schedule->getDateTime())) {
                 numberOfPeople += bookedSchedule->getNumberOfPeople();
             }
@@ -32,14 +34,14 @@ public:
             throw std::runtime_error("Number of people is over restaurant capacity per hour");
         }
 
-        
+        /*
         // 일요일에는 시스템을 오픈하지 않는다.
         time_t now = time(nullptr);
         if (getDayOfWeek(now) == "Sunday") {
-           throw std::runtime_error("Booking system is not available on sunday");
-        }        
+            throw std::runtime_error("Booking system is not available on sunday");
+        }
+        */
 
-        
         schedules.push_back(schedule);
 
         // 고객에게 SMS 발송
@@ -48,20 +50,20 @@ public:
         if (schedule->getCustomer().getEmail() != "") {
             mailSender->sendMail(schedule);
         }
-	}
+    }
 
-	bool hasSchedule(Schedule *schedule) {
-		//check if an element exists in array
-		return std::find(schedules.begin(), schedules.end(), schedule) != schedules.end();
-	}
+    bool hasSchedule(Schedule* schedule) {
+        //check if an element exists in array
+        return std::find(schedules.begin(), schedules.end(), schedule) != schedules.end();
+    }
 
-	void setSmsSender(SmsSender *smsSender) {
-		this->smsSender = smsSender;
-	}
+    void setSmsSender(SmsSender* smsSender) {
+        this->smsSender = smsSender;
+    }
 
-	void setMailSender(MailSender* mailSender) {
-		this->mailSender = mailSender;
-	}
+    void setMailSender(MailSender* mailSender) {
+        this->mailSender = mailSender;
+    }
 
 private:
     //두 시간이 같은지 확인
@@ -78,8 +80,10 @@ private:
         return string{ buffer };
     }
 
-	int capacityPerHour;
-	vector<Schedule *> schedules;
-	SmsSender *smsSender;
-	MailSender *mailSender;
+    int capacityPerHour;
+    vector<Schedule*> schedules;
+    SmsSender* smsSender;
+    MailSender* mailSender;
 };
+
+
