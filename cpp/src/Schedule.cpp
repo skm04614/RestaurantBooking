@@ -1,6 +1,6 @@
 #pragma once
 #include <ctime>
-#include "Customer.hpp"
+#include "Customer.cpp"
 
 using std::time_t;
 
