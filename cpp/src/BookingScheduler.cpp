@@ -2,9 +2,9 @@
 #include <vector>
 #include <stdexcept>
 #include <algorithm>
-#include "Schedule.hpp"
-#include "MailSender.hpp"
-#include "SmsSender.hpp"
+#include "Schedule.cpp"
+#include "MailSender.cpp"
+#include "SmsSender.cpp"
 
 using std::vector;
 
