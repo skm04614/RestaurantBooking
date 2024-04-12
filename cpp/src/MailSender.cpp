@@ -1,5 +1,5 @@
 #pragma once
-#include "Schedule.hpp"
+#include "Schedule.cpp"
 
 class MailSender {
 public:
