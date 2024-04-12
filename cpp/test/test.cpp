@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "../Project20/BookingScheduler.hpp"
+#include "../Project20/BookingScheduler.cpp"
 
 TEST(BookingSchedulerTest, 예약은_정시에만_가능하다_정시가_아닌경우_예약불가) {
 	
