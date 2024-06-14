@@ -12,8 +12,8 @@ class BookingScheduler:
 
     def add_booking(self,
                     booking: Booking) -> None:
-        # if datetime.now().weekday() == 6:  # 일요일에는 시스템을 오픈하지 않는다. datetime 모듈에서 일요일은 6.
-        #     raise ValueError("Booking system is not available on Sunday")
+        if datetime.now().weekday() == 6:  # 일요일에는 시스템을 오픈하지 않는다. datetime 모듈에서 일요일은 6.
+            raise ValueError("Booking system is not available on Sunday")
 
         if booking.time.minute:
             raise ValueError("Booking should be on the hour.")

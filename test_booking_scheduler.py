@@ -2,6 +2,7 @@ import io
 import unittest
 from datetime import datetime
 from contextlib import redirect_stdout
+from freezegun import freeze_time
 
 from booking_scheduler import BookingScheduler
 from booking import Booking
@@ -77,11 +78,22 @@ class BookingSchedulerTest(unittest.TestCase):
 
         self.assertIn("email", contents)
 
-    def test_현재날짜가_일요일인_경우_예약불가_예외처리(self):
-        pass
+    @freeze_time("2024-06-09")
+    def test_invalid_sunday_request(self):
+        dt = datetime.strptime("24-06-14 03:00", "%y-%m-%d %H:%M")
+        limit = 5
+        booking_scheduler = BookingScheduler(10 * limit)
 
-    def test_현재날짜가_일요일이_아닌경우_예약가능(self):
-        pass
+        with self.assertRaises(ValueError):
+            booking_scheduler.add_booking(Booking(dt, limit, self._customer_with_phone_and_email))
+
+    @freeze_time("2024-06-10")
+    def test_valid_non_sunday_request(self):
+        dt = datetime.strptime("24-06-14 03:00", "%y-%m-%d %H:%M")
+        limit = 5
+        booking_scheduler = BookingScheduler(10 * limit)
+
+        booking_scheduler.add_booking(Booking(dt, limit, self._customer_with_phone_and_email))
 
 
 if __name__ == '__main__':
